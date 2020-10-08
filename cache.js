@@ -1,20 +1,34 @@
 
 const cache  = () => {
 
-    let oldValue = 0;
+    const  cache = new Set();
 
     return  function(base, pow) {
-        const result = base ** pow;
-        const isCache = result === oldValue;
+         if (base && pow && typeof base === 'number' && typeof pow === 'number') {
+             const res = base ** pow;
+             const isCached = cache.has(res);
 
-        if (!isCache) {
-            oldValue = result;
-        }
+             if (isCached) {
+                const tmpArr = [...cache];
 
-        return {
-            value: result,
-            fromCache: isCache
-        }
+                const findElem = tmpArr.find((elem) => elem === res)
+
+                 return {
+                     value: findElem,
+                     cached: isCached
+                 }
+             } else {
+                 cache.add(res);
+
+                 return {
+                     value: res,
+                     cached: isCached
+                 };
+             }
+
+         } else {
+             return false;
+         }
     }
 }
 
@@ -22,4 +36,5 @@ const calculate = cache();
 
 console.log(calculate(3,3));
 console.log(calculate(2, 10)); // { value: 1024, fromCache: false}
-console.log(calculate(2, 10)); // { value: 1024, fromCache: true}
+console.log(calculate(2, 10)); // { value: 1024, fromCache: false}
+console.log(calculate()); // false
