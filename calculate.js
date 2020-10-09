@@ -1,9 +1,9 @@
 function Calc() {
     let self = this;
 
-    this._cache = [];
+    this._cache = [];  // храним историю всех операций
 
-    this._allOperation = [
+    this._allOperation = [  // храним базовые операции калькулятора, по умолчанию +, -. По возможности можно добавить новые
         {
             sign: '+',
             operation: (a, b) => a + b
