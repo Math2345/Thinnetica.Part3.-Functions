@@ -1,31 +1,29 @@
 
 const cache  = () => {
 
-    const cache = new Set();
+    const cache = {};
 
     return function(base, pow) {
          if (base && pow && typeof base === 'number' && typeof pow === 'number') {
-             const res = base ** pow;
-             const isCached = cache.has(res);
+             const key = base + ',' + pow;
+             const isCached =  cache.hasOwnProperty(key);
 
              if (isCached) {
-                const tmpArr = [...cache];
-
-                const findElem = tmpArr.find((elem) => elem === res)
 
                  return {
-                     value: findElem,
+                     value: cache[key],
                      cached: isCached
                  }
              } else {
-                 cache.add(res);
+                 const res = base ** pow;
+
+                 cache[key] = res;
 
                  return {
                      value: res,
                      cached: isCached
                  };
              }
-
          } else {
              return false;
          }

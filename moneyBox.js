@@ -15,15 +15,10 @@ function MoneyBox() {
     }
 }
 
-
-
-
 const box = new MoneyBox();
 
 box.getAmount(); // 0
 box.addCoin();
-box.addCoin();
-console.log(box.getAmount()); // 2
 box.addCoin();
 box.addCoin();
 console.log(box.getAmount());
